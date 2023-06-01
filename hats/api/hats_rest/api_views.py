@@ -5,9 +5,9 @@ from common.json import ModelEncoder
 from .models import Hats, LocationVO
 
 
-# class LocationVODetailEncoder(ModelEncoder):
-#     model = LocationVO
-#     properties = ["import_href"]
+class LocationVODetailEncoder(ModelEncoder):
+    model = LocationVO
+    properties = ["import_href"]
 
 
 class HatListEncoder(ModelEncoder):
@@ -27,9 +27,9 @@ class HatDetailEncoder(ModelEncoder):
         "picture_url",
         "location",
     ]
-    # encoders = {
-    #     "location": LocationVODetailEncoder(),
-    # }
+    encoders = {
+        "location": LocationVODetailEncoder(),
+    }
 
 
 @require_http_methods(["GET", "POST"])
