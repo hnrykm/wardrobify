@@ -5,22 +5,23 @@ from common.json import ModelEncoder
 from .models import Hats, LocationVO
 
 
-class LocationVODetailEncoder(ModelEncoder):
+class LocationVOEncoder(ModelEncoder):
     model = LocationVO
-    properties = ["import_href"]
+    properties = ["import_href", "id"]
 
 
 class HatListEncoder(ModelEncoder):
     model = Hats
     properties = [
-        "import_href",
         "id",
+        "style_name",
     ]
 
 
 class HatDetailEncoder(ModelEncoder):
     model = Hats
     properties = [
+        "id",
         "fabric",
         "style_name",
         "color",
@@ -28,7 +29,7 @@ class HatDetailEncoder(ModelEncoder):
         "location",
     ]
     encoders = {
-        "location": LocationVODetailEncoder(),
+        "location": LocationVOEncoder(),
     }
 
 
@@ -44,8 +45,7 @@ def api_list_hats(request, location_vo_id=None):
         content = json.loads(request.body)
 
         try:
-            location_href = content["location"]
-            location = LocationVO.objects.get(import_href=location_href)
+            location = LocationVO.objects.get(id=content["location"])
             content["location"] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(
@@ -59,3 +59,35 @@ def api_list_hats(request, location_vo_id=None):
             encoder=HatDetailEncoder,
             safe=False,
         )
+
+
+@require_http_methods(["GET", "PUT", "DELETE"])
+def api_show_hats(request, pk):
+    if request.method == "GET":
+        hats = Hats.objects.get(id=pk)
+        return JsonResponse(
+            hats,
+            encoder=HatDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "PUT":
+        content = json.loads(request.body)
+        try:
+            if "location" in content:
+                location = LocationVO.objects.get(id=content["location"])
+                content["location"] = location
+        except LocationVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid location id"},
+                status=400,
+            )
+        Hats.objects.filter(id=pk).update(**content)
+        hats = Hats.objects.get(id=pk)
+        return JsonResponse(
+            hats,
+            encoder=HatDetailEncoder,
+            safe=False,
+        )
+    else:
+        count, _ = Hats.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
