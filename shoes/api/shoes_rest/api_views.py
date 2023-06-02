@@ -15,6 +15,9 @@ class ShoeListEncoder(ModelEncoder):
         "model_name",
         "id",
         "bin",
+        "manufacturer",
+        "color",
+        "picture_url",
     ]
     encoders={
         "bin": BinVOEncoder(),
@@ -79,7 +82,7 @@ def api_show_shoes(request, pk):
                 content["bin"] = bin
         except BinVO.DoesNotExist:
             return JsonResponse(
-                {"message": "Invalid shoe id"},
+                {"message": "Invalid bin id"},
                 status=400,
             )
         Shoes.objects.filter(id=pk).update(**content)
