@@ -16,11 +16,13 @@ function HatsList() {
 	};
 
 	const handleDelete = async (id) => {
-		const response = await fetch(`http://localhost:8090/api/hats/${id}/`, { method: 'delete' });
+		const response = await fetch(`http://localhost:8090/api/hats/${id}/`, {
+			method: 'delete',
+		});
 		if (response.ok) {
 			window.location.reload(false);
 		}
-	}
+	};
 
 	useEffect(() => {
 		fetchData();

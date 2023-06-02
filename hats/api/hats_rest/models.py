@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class LocationVO(models.Model):
@@ -19,6 +18,3 @@ class Hats(models.Model):
         related_name="location",
         on_delete=models.CASCADE,
     )
-
-    def get_api_url(self):
-        return reverse("api_show_hats", kwargs={"id": self.id})

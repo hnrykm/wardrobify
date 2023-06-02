@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import useNavigate from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
 
 function createSuccess() {
-	return `<div class="alert alert-success" role="alert">New hat added!</div>`;
+	return `<div class="alert alert-success" role="alert">New hat successfully added!</div>`;
 }
 
 function HatForm() {
 	const [locations, setLocations] = useState([]);
 	const [formData, setFormData] = useState({
-        fabric: '',
-        styleName: '',
-        color: '',
-        pictureURL: '',
-        location: '',
+		fabric: '',
+		styleName: '',
+		color: '',
+		pictureURL: '',
+		location: '',
 	});
 
-    const fetchData = async () => {
+	const fetchData = async () => {
 		const url = 'http://localhost:8100/api/locations/';
 		const response = await fetch(url);
 
@@ -31,17 +30,15 @@ function HatForm() {
 		setFormData({ ...formData, [name]: value });
 	};
 
-    // const navigate = useNavigate();
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		const data = {};
-        data.fabric = formData.fabric;
-        data.style_name = formData.styleName;
-        data.color = formData.color;
-        data.picture_url = formData.pictureURL;
-        data.location = formData.location;
+		data.fabric = formData.fabric;
+		data.style_name = formData.styleName;
+		data.color = formData.color;
+		data.picture_url = formData.pictureURL;
+		data.location = formData.location;
 
 		const hatsUrl = 'http://localhost:8090/api/hats/';
 		const fetchConfig = {
@@ -58,14 +55,14 @@ function HatForm() {
 			success.innerHTML = createSuccess();
 			setFormData({
 				fabric: '',
-        styleName: '',
-        color: '',
-        pictureURL: '',
-        location: '',
+				styleName: '',
+				color: '',
+				pictureURL: '',
+				location: '',
 			});
 		}
 	};
-	
+
 	useEffect(() => {
 		fetchData();
 	}, []);
@@ -115,7 +112,7 @@ function HatForm() {
 							/>
 							<label htmlFor="name">Color</label>
 						</div>
-                        <div className="form-floating mb-3">
+						<div className="form-floating mb-3">
 							<input
 								placeholder="Picture URL"
 								required
@@ -146,7 +143,7 @@ function HatForm() {
 								})}
 							</select>
 						</div>
-                        <div className="mb-3">
+						<div className="mb-3">
 							<select
 								required
 								id="location"
@@ -164,7 +161,7 @@ function HatForm() {
 								})}
 							</select>
 						</div>
-                        <div className="mb-3">
+						<div className="mb-3">
 							<select
 								required
 								id="location"
@@ -192,4 +189,3 @@ function HatForm() {
 }
 
 export default HatForm;
-
