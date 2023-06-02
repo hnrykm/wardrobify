@@ -7,7 +7,13 @@ from .models import Hats, LocationVO
 
 class LocationVOEncoder(ModelEncoder):
     model = LocationVO
-    properties = ["import_href", "id"]
+    properties = [
+        "import_href",
+        "id",
+        "closet_name",
+        "section_number",
+        "shelf_number",
+    ]
 
 
 class HatListEncoder(ModelEncoder):

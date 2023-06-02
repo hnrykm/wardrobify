@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './index.css';
 
 function HatsList() {
@@ -19,7 +20,22 @@ function HatsList() {
 	}, []);
     
     return (
-		<table className="table table-striped table-hover">
+        <div className="row">
+			<div className="offset-1 col-10">
+				<div className="shadow p-3 m-4">
+					<div className="row gap-5 m-3">
+						<Link to="new" className="btn btn-primary btn-sm px-4 gap-1 col">
+							Add a new hat
+						</Link>
+						<Link to="new" className="btn btn-primary btn-sm px-4 gap-1 col">
+							Edit an existing hat
+						</Link>
+						<Link to="new" className="btn btn-primary btn-sm px-4 gap-1 col">
+							Delete a hat
+						</Link>
+					</div>
+					<br/>
+		<table className="table table-hover text-center">
 			<thead>
 				<tr>
                     <th>Picture</th>
@@ -39,12 +55,15 @@ function HatsList() {
                             <td>{hat.fabric}</td>
                             <td>{hat.style_name}</td>
                             <td>{hat.color}</td>
-                            <td>{hat.location.id}</td>
+                            <td>{hat.location.closet_name} - {hat.location.section_number}/{hat.location.shelf_number}</td>
 						</tr>
 					);
 				})}
 			</tbody>
 		</table>
+        </div>
+        </div>
+        </div>
 	);
 }
 
