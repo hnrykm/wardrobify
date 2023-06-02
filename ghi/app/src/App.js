@@ -4,6 +4,7 @@ import Nav from './Nav';
 import HatForm from './HatForm';
 import HatsList from './HatsList';
 import ShoeList from './ShoeList';
+import HatFormEdit from './HatFormEdit';
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 					<Route path="hats">
 						<Route index element={<HatsList />} />
 						<Route path="new" element={<HatForm />} />
+						<Route path="edit/:id" element={<HatFormEdit />} />
 					</Route>
 					<Route path="shoes">
 						<Route index element={<ShoeList />} />
