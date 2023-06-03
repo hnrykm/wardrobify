@@ -18,6 +18,8 @@ code {
 
 .shoepic {
   width: 150px;
+  height: 150px;
+  box-shadow: 50px;
 }
 
 .mainpic {
