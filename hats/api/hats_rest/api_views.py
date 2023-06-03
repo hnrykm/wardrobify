@@ -16,22 +16,7 @@ class LocationVOEncoder(ModelEncoder):
     ]
 
 
-class HatListEncoder(ModelEncoder):
-    model = Hats
-    properties = [
-        "picture_url",
-        "id",
-        "fabric",
-        "style_name",
-        "color",
-        "location",
-    ]
-    encoders = {
-        "location": LocationVOEncoder(),
-    }
-
-
-class HatDetailEncoder(ModelEncoder):
+class HatEncoder(ModelEncoder):
     model = Hats
     properties = [
         "id",
@@ -52,7 +37,7 @@ def api_list_hats(request, location_vo_id=None):
         hats = Hats.objects.all()
         return JsonResponse(
             {"hats": hats},
-            encoder=HatListEncoder,
+            encoder=HatEncoder,
         )
     else:
         content = json.loads(request.body)
@@ -69,7 +54,7 @@ def api_list_hats(request, location_vo_id=None):
         hat = Hats.objects.create(**content)
         return JsonResponse(
             hat,
-            encoder=HatDetailEncoder,
+            encoder=HatEncoder,
             safe=False,
         )
 
@@ -80,7 +65,7 @@ def api_show_hats(request, pk):
         hats = Hats.objects.get(id=pk)
         return JsonResponse(
             hats,
-            encoder=HatDetailEncoder,
+            encoder=HatEncoder,
             safe=False,
         )
     elif request.method == "PUT":
@@ -98,7 +83,7 @@ def api_show_hats(request, pk):
         hats = Hats.objects.get(id=pk)
         return JsonResponse(
             hats,
-            encoder=HatDetailEncoder,
+            encoder=HatEncoder,
             safe=False,
         )
     else:

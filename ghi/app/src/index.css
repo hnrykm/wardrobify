@@ -13,11 +13,15 @@ code {
 }
 
 .hatpic {
-  width: 100px;
+  height: 100px;
 }
 
 .shoepic {
   width: 150px;
   height: 150px;
   box-shadow: 50px;
+}
+
+.mainpic {
+  height: 300px;
 }
