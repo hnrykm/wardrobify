@@ -7,7 +7,14 @@ import json
 
 class BinVOEncoder(ModelEncoder):
     model = BinVO
-    properties = ["import_href", "id"]
+    properties = [
+        "import_href",
+        "id",
+        "closet_name",
+        "bin_number",
+        "bin_size",
+
+        ]
 
 class ShoeListEncoder(ModelEncoder):
     model= Shoes
